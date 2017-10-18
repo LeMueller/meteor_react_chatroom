@@ -1,0 +1,6 @@
+/* CSS declarations go here */
+.dialogs {
+  width: 500px;
+  height: 600px;
+  border: solid 1px black;
+}
