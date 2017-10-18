@@ -15,16 +15,6 @@ class Dialogs extends Component{
     this.renderDialogItems=this.renderDialogItems.bind(this);    
   }
 
-  /**
-  getDialogs() {
-    return [
-      { _id: 1, text: 'This is task 1' },
-      { _id: 2, text: 'This is task 2' },
-      { _id: 3, text: 'This is task 3' },
-    ];
-  }
-  **/
-
   renderDialogItems(){
 
     return (

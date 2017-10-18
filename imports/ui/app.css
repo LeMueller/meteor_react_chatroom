@@ -1,0 +1,19 @@
+.chatroomspace {
+	width: 800px;
+	height: 700px;
+	border: solid 1px blue;
+}
+
+.contactspace {
+	width: 200px;
+	height: 600px;
+	float: left;
+	border: solid 1px red;
+}
+
+.dialogspace {
+	width: 550px;
+  	height: 650px;
+  	float: right;
+  	border: solid 1px yellow;
+}

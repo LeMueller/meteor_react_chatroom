@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 
+import { Meteor } from 'meteor/meteor';
+
 import {DialogServer} from './dialogServer.js';
 
 export default class SendArea extends Component{
@@ -14,18 +16,30 @@ export default class SendArea extends Component{
 	 
 	    // Find the text field via the React ref
 	    const text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
+
+	    if(Meteor.userId())
 	 
 	    DialogServer.insert({
-	      text: text,
-	      sender:"self",
-	      createdAt: new Date(), // current time
+	      	text: text,
+	      	owner: Meteor.userId(),           // _id of logged in user
+      		username: Meteor.user().username,  // username of logged in user
+	      	createdAt: new Date(), // current time
 	    });
 	 
 	    // Clear form
 	    ReactDOM.findDOMNode(this.refs.textInput).value = '';
 	}
 
+	  //show all users
+	  showAllUsers(){
+	    let allUsers = Meteor.users.find({}).fetch();
+	    alert(allUsers);
+	  }
+
 	render(){
+
+		this.showAllUsers();
+
 	    return(
 	      <div>
 	      	<form className="new_message" onSubmit={this.handleSubmit.bind(this)}>

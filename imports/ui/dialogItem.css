@@ -3,5 +3,6 @@
 }
 
 .you {
-	text-align:left;
+	position: relative;
+	left: 0;
 }
