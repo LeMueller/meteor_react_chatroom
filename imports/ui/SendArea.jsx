@@ -9,6 +9,8 @@ export default class SendArea extends Component{
 
 	constructor(props){
 	    super(props);
+
+	     
 	}
 
 	handleSubmit(event) {
@@ -30,15 +32,15 @@ export default class SendArea extends Component{
 	    ReactDOM.findDOMNode(this.refs.textInput).value = '';
 	}
 
-	  //show all users
-	  showAllUsers(){
-	    let allUsers = Meteor.users.find({}).fetch();
-	    alert(allUsers);
-	  }
+	
 
 	render(){
 
-		this.showAllUsers();
+		//show all users
+		 let allUsersDate=Meteor.subscribe('allUsers');
+		 let allUsersD = Meteor.users.find({}).fetch();
+
+		console.log(allUsersD);
 
 	    return(
 	      <div>
