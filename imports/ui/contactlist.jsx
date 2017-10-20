@@ -11,7 +11,6 @@ export default class ContactList extends Component{
 	}
 
 	getContactItems(){
-		//let allUsersData = Meteor.users.find({}).fetch(); //Array(0)
 
 		let allUsersData = [
 			{_id:1, userName:"AAA"},
@@ -26,20 +25,21 @@ export default class ContactList extends Component{
 		))
 		**/
 
-		allUsersData.map(function(userData){
-			console.log(userData.userName);
+		let items = allUsersData.map(function(userData){
+			//console.log(userData.userName);//works
 			return(
 				<ContactItem key={userData._id} userName={userData.userName}/>
 			)
 		})
+
+		return items;
 
 	}
 
 	render(){
 		return(
 			<ul>
-				{this.getContactItems()}
-				<Test/>
+				{this.getContactItems()}	
 			</ul>
 		)
 	}

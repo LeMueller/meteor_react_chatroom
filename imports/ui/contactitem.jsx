@@ -4,7 +4,7 @@ export default class ContactItem extends Component{
 	constructor(props){
 		super(props);
 
-		alert("this.props.userName:::"+this.props.userName);
+		//alert("this.props.userName:::"+this.props.userName);
 
 	}
 
