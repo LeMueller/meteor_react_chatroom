@@ -10,7 +10,7 @@ export default class ContactItem extends Component{
 
 	render(){
 
-		console.log("this.props.userName:::"+this.props.userName);
+		//console.log("this.props.userName:::"+this.props.userName);
 
 		return(
 			<li>

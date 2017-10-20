@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
-import { Meteor } from 'meteor/meteor';
+import { Meteor } from 'meteor/meteor'
 import ContactItem from './contactitem.jsx';
 import Test from './test.jsx';
+
+const util = require('util')
 
 export default class ContactList extends Component{
 	constructor(props){
@@ -12,12 +14,18 @@ export default class ContactList extends Component{
 
 	getContactItems(){
 
+		/**
 		let allUsersData = [
 			{_id:1, userName:"AAA"},
 			{_id:2, userName:"BBB"},
 			{_id:3, userName:"CCC"},
 			{_id:4, userName:"DDD"},
 		]
+		**/
+
+		let allUsersData = Meteor.users.find({}).fetch();
+
+		console.log(util.inspect(Meteor.users, false, null))
 
 		/**
 		allUsersData.map((userData)=>(
@@ -25,11 +33,17 @@ export default class ContactList extends Component{
 		))
 		**/
 
+		//console.log("Meteor.userName:::"+ Meteor.users);
+
 		let items = allUsersData.map(function(userData){
-			//console.log(userData.userName);//works
-			return(
-				<ContactItem key={userData._id} userName={userData.userName}/>
-			)
+			if(userData.userName==Meteor.userName){
+
+			}else{
+				return(
+					<ContactItem key={userData._id} userName={userData.userName}/>
+				)
+			}
+			
 		})
 
 		return items;
