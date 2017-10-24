@@ -28,22 +28,30 @@ class App extends Component{
             }
         }
 
+        console.log("constructor");
+        console.log("Meteor.user():::"+util.inspect(Meteor.user(), false, null));
+        console.log("Meteor.users.find({}, { sort: { username: 1 } }).fetch():::"+util.inspect(Meteor.users.find({}, { sort: { username: 1 } }).fetch(), false, null));
+
     }
 
     componentDidMount(){
-
-        console.log(this.state.currentUser);
-       
+        console.log("DidMount");
+        console.log("Meteor.user():::"+util.inspect(Meteor.user(), false, null));
+        console.log("Meteor.users.find({}, { sort: { username: 1 } }).fetch():::"+util.inspect(Meteor.users.find({}, { sort: { username: 1 } }).fetch(), false, null));
     }
 
     componentWillReceiveProps(nextProps){
-        console.log(this.state.currentUser);
+        console.log("WillReciveProps");
+        console.log("Meteor.user():::"+util.inspect(Meteor.user(), false, null));
+        console.log("Meteor.users.find({}, { sort: { username: 1 } }).fetch():::"+util.inspect(Meteor.users.find({}, { sort: { username: 1 } }).fetch(), false, null));
     }
 
 
   render(){
 
-    console.log(this.state.currentUser);
+    console.log("render");
+    console.log("Meteor.user():::"+util.inspect(Meteor.user(), false, null));
+    console.log("Meteor.users.find({}, { sort: { username: 1 } }).fetch():::"+util.inspect(Meteor.users.find({}, { sort: { username: 1 } }).fetch(), false, null));
 
     return(
     	<div className="chatroomspace">
@@ -81,6 +89,7 @@ export default createContainer(() => {
   //Meteor.subscribe('messages');
   //Meteor.subscribe('all_users');
 
+  console.log("createContainer");
   console.log("Meteor.user():::"+util.inspect(Meteor.user(), false, null));
   console.log("Meteor.users.find({}, { sort: { username: 1 } }).fetch():::"+util.inspect(Meteor.users.find({}, { sort: { username: 1 } }).fetch(), false, null));
 
