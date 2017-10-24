@@ -12,6 +12,10 @@ export default class ContactList extends Component{
 		this.getContactItems=this.getContactItems.bind(this);
 	}
 
+	changeCollection(name){
+		name = new Mongo.Collection(name);
+	}
+
 	getContactItems(){
 
 		
@@ -24,30 +28,27 @@ export default class ContactList extends Component{
 		
 
 		//let allUsersData = Meteor.users.find({}).fetch();
-
 		//console.log(Meteor.users.find({"_id":"AAA"}).fetch());
-
-		//console.log(util.inspect(Meteor.users, false, null));
-
+		//console.log(util.inspect(Meteor.user(), false, null));
 		/**
 		allUsersData.map((userData)=>(
 				<ContactItem key={userData._id} userName={userData.username}/>
 		))
 		**/
-		
-
 		//console.log("Meteor.userName:::"+ Meteor.users);
 
 		let items = allUsersData.map(function(userData){
-			if(userData.userName==Meteor.userName){
+			if(userData.userName==Meteor.user()){
 
 			}else{
 				return(
-					<ContactItem key={userData._id} userName={userData.userName}/>
+					<ContactItem key={userData._id} userName={userData.userName} />
 				)
 			}
 			
 		})
+
+
 
 		return items;
 
