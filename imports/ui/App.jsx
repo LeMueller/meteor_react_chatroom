@@ -14,44 +14,55 @@ import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 import './app.css';
 import ContactList from './contactlist.jsx';
 
-const util = require('util')
+const util = require('util');
+
+let newCurrentUser, newallUsers;
 
 class App extends Component{
 
     constructor(props){
         super(props);
         this.state={
-            currentUser:this.props.currentUser,
+            currentUser:{},
             currentChat:{
                 username:"",
                 _id:""
             }
         }
 
-        console.log("constructor");
-        console.log("Meteor.user():::"+util.inspect(Meteor.user(), false, null));
-        console.log("Meteor.users.find({}, { sort: { username: 1 } }).fetch():::"+util.inspect(Meteor.users.find({}, { sort: { username: 1 } }).fetch(), false, null));
 
     }
 
     componentDidMount(){
-        console.log("DidMount");
-        console.log("Meteor.user():::"+util.inspect(Meteor.user(), false, null));
-        console.log("Meteor.users.find({}, { sort: { username: 1 } }).fetch():::"+util.inspect(Meteor.users.find({}, { sort: { username: 1 } }).fetch(), false, null));
+
     }
 
     componentWillReceiveProps(nextProps){
-        console.log("WillReciveProps");
-        console.log("Meteor.user():::"+util.inspect(Meteor.user(), false, null));
-        console.log("Meteor.users.find({}, { sort: { username: 1 } }).fetch():::"+util.inspect(Meteor.users.find({}, { sort: { username: 1 } }).fetch(), false, null));
+      /**  while recieving nextProps，this.props.messages updated, this.props.currentUser not!!!
+      console.log("receiveProps");
+      console.log("nextProps::"+util.inspect(nextProps, false, null));
+      console.log("this.props.currentUser::"+util.inspect(this.props.currentUser , false, null));
+      console.log("this.props.messages::"+util.inspect(this.props.messages , false, null));
+      console.log("nextProps.currentUser::"+util.inspect(nextProps.currentUser , false, null));
+      console.log("this.props.currentUser::"+util.inspect(this.props.currentUser , false, null));
+      **/
+
+      newCurrentUser=nextProps.currentUser;
+      newallUsers=nextProps.allUsers;
+
+      //console.log("newCurrentUser:::"+util.inspect(newCurrentUser , false, null))
+
+      //console.log("this.props:::"+util.inspect(this.props , false, null))
+
+      this.setState({
+        currentUser:newCurrentUser,
+      });
     }
 
 
   render(){
 
-    console.log("render");
-    console.log("Meteor.user():::"+util.inspect(Meteor.user(), false, null));
-    console.log("Meteor.users.find({}, { sort: { username: 1 } }).fetch():::"+util.inspect(Meteor.users.find({}, { sort: { username: 1 } }).fetch(), false, null));
+    //console.log("this.state:::"+util.inspect(this.state , false, null));
 
     return(
     	<div className="chatroomspace">
@@ -88,10 +99,6 @@ App.propTypes = {
 export default createContainer(() => {
   //Meteor.subscribe('messages');
   //Meteor.subscribe('all_users');
-
-  console.log("createContainer");
-  console.log("Meteor.user():::"+util.inspect(Meteor.user(), false, null));
-  console.log("Meteor.users.find({}, { sort: { username: 1 } }).fetch():::"+util.inspect(Meteor.users.find({}, { sort: { username: 1 } }).fetch(), false, null));
 
   return {
     messages: DialogServer.find({}).fetch(),
