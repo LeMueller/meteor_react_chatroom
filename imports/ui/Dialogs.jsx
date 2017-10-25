@@ -12,14 +12,14 @@ class Dialogs extends Component{
   constructor(props){
     super(props);
 
-    this.renderDialogItems=this.renderDialogItems.bind(this);    
+    this.renderDialogItems=this.renderDialogItems.bind(this);
   }
 
   renderDialogItems(){
 
     return (
-      this.props.dialogItems.map((item)=>(
-        <DialogItem key={item._id} item={item}/>
+      this.props.messages.map((message)=>(
+        <DialogItem key={item._id} message={message}/>
       ))
     )
   }
@@ -28,7 +28,7 @@ class Dialogs extends Component{
     return(
       <div className='dialogs'>
         {
-          this.renderDialogItems()
+          this.props.renderDialogItems()
         }
       </div>
     )

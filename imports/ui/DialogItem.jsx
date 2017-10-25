@@ -14,8 +14,7 @@ export default class DialogItem extends Component{
   isOwnMessage(){
 
     let sender;
-
-    if(this.props.item.owner == Meteor.userId()){
+    if(this.props.message.owner._id == Meteor.userId()){
       sender="self";
     }else{
       sender="you";
@@ -23,13 +22,13 @@ export default class DialogItem extends Component{
 
     return sender;
   }
-  
+
 
   render(){
 
     return(
       <div className={this.isOwnMessage()}>
-        {this.props.item.text}
+        {this.props.message.text}
       </div>
     )
   }

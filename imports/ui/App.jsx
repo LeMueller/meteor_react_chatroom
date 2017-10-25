@@ -14,9 +14,11 @@ import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 import './app.css';
 import ContactList from './contactlist.jsx';
 
+import ReactDOM from 'react-dom';
+
 const util = require('util');
 
-let newCurrentUser, newallUsers;
+let newCurrentUser, newAllUsers;
 
 class App extends Component{
 
@@ -27,7 +29,8 @@ class App extends Component{
             currentChat:{
                 username:"",
                 _id:""
-            }
+            },
+            allUsers:{}
         }
 
 
@@ -48,7 +51,7 @@ class App extends Component{
       **/
 
       newCurrentUser=nextProps.currentUser;
-      newallUsers=nextProps.allUsers;
+      newAllUsers=nextProps.allUsers;
 
       //console.log("newCurrentUser:::"+util.inspect(newCurrentUser , false, null))
 
@@ -56,11 +59,60 @@ class App extends Component{
 
       this.setState({
         currentUser:newCurrentUser,
+        allUsers:newAllUsers,
       });
     }
 
+    handleSelectUser(user){
+      this.setState({
+        currentChat: user,
+      })
+    }
+
+    handleSubmit(event){
+      //event.preventDefault();
+
+      // Find the text field via the React ref
+      const text = document.getElementById('textinput').value;
+      const owner = this.state.currentUser;
+      const recipient= this.state.currentChat;
+
+      //console.log("handleSubmit:Meteor.userId():::"+Meteor.userId());
+      console.log('owner:::'+util.inspect(owner , false, null));
+      console.log("recipient:::"+util.inspect(recipient , false, null));
+
+      if(Meteor.userId() && text){
+
+        DialogServer.insert({
+            text: text,
+            owner: owner,
+            recipient: recipient,
+            createdAt: new Date(), // current time
+        });
+
+        // Clear form
+        document.getElementById('textinput').value = '';
+      }
+    }
+
+    renderDialogItems(){
+
+      let selectedMessages=this.props.messages.map((message)=>{
+        if(message.owner._id==this.state.currentUser._id && message.recipient._id==this.state.currentChat._id){
+          return message
+        }
+      })
+
+      return (
+        selectedMessages.map((message)=>(
+          <DialogItem key={item._id} message={message}/>
+        ))
+      )
+  }
+
 
   render(){
+
 
     //console.log("this.state:::"+util.inspect(this.state , false, null));
 
@@ -72,20 +124,24 @@ class App extends Component{
     			<div className="contactspace">
     				<div id="filter"></div>
     				<div id="people">
-
-                        <ContactList />
-                        
+              <ContactList
+                currentUser={this.state.currentUser}
+                currentChat={this.state.currentChat}
+                allUsers={this.props.allUsers}
+                onSelectUser={this.handleSelectUser} />
     				</div>
     			</div>
-    			
+
 			    <div className="dialogspace">
-			        <Dialogs/>
-			        <SendArea className="sendarea"/>
+			        <Dialogs currentUser={this.state.currentUser}
+                      currentChat={this.state.currentChat}/>
+			        <SendArea className="sendarea"
+                      onSubmit={this.handleSubmit}/>
 			    </div>
     		</div>
 
 
-      	</div>
+      </div>
     )
   }
 }
@@ -106,4 +162,3 @@ export default createContainer(() => {
     allUsers: Meteor.users.find({}, { sort: { username: 1 } }).fetch(),
   };
 }, App);
-

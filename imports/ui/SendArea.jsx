@@ -38,7 +38,7 @@ export default class SendArea extends Component{
 	    return(
 	      <div>
 	      	<form className="new_message" onSubmit={this.handleSubmit.bind(this)}>
-		        <input type='text' ref="textInput" placeholder="message to send"/>
+		        <input id="textinput" type='text' ref="textInput" placeholder="message to send"/>
 		        <button onClick={this.handleSubmit.bind(this)}>send</button>
 	        </form>
 	      </div>
